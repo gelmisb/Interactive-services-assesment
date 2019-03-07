@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive services</title>
+
+    <!-- mobile responsive meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link href="css/styles.css" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+</head>
+
+
+<body>
+
+<header>
+
+    <h2>Interactive services</h2>
+    <h4>Quiz time</h4>
+
+</header>
+
+<div class="mainContent">
+
+    <div class="quizScore">
+        Score: 0
+    </div>
+
+
+
+
+    <div class="quizChoices">
+
+        <div class="quizC" >
+
+            <div class="quizQuestion">
+                Where would you find the Empire State building?
+            </div>
+
+            <ul id="quizCpush1">
+
+
+                <li><input name="test" type="radio" value="ans" />New York </li>
+
+                <li><input name="test" type="radio" value="inc"/> Los Angeles</li>
+
+                <li><input name="test" type="radio" value="inc" />  San Francisco</li>
+
+                <li><input name="test" type="radio" value="inc" /> New Orleans</li>
+            </ul>
+
+            <div class="exp answer-text" style="display:none"> That's right </div>
+            <div class="red answer-text" style="display:none"> That’s not it </div>
+
+        </div>
+
+        <div class="quizC" >
+            <div class="quizQuestion">
+                Identify the components of a PC
+            </div>
+
+
+            <ul class="quizCpush">
+                <li><input name="pcPart" type="checkbox" value="Processor" />Processor</li>
+
+                <li><input name="pcPart" type="checkbox" value="Memory"/> Memory </li>
+
+                <li><input name="pcPart" type="checkbox" value="Hard Disk" /> Hard Disk </li>
+
+                <li><input name="pcPart" type="checkbox" value="CD-ROM Drive" /> CD-ROM Driver </li>
+
+                <li><input name="pcPart" type="checkbox" value="Printer" /> Printer </li>
+            </ul>
+            <button type="button" id="quiz2Btn">Submit</button>
+
+
+            <div class="exp1 answer-text1" style="display:none"> That's right </div>
+            <div class="red1 answer-text1" style="display:none"> That’s not it </div>
+
+        </div>
+
+        <div class="quizC" >
+            <div class="quizQuestion">
+                <input type="text" id="answerChar"/> is a character in the film “The Matrix”
+            </div>
+
+            <ul class="quizCpush">
+                <li class="draggable" >R2D2</li>
+
+                <li class="draggable" >Neo </li>
+
+                <li class="draggable" >Ripley </li>
+            </ul>
+            <button type="button" id="quiz3Btn">Submit</button>
+
+
+            <div class="exp2 answer-text2" style="display:none"> That's right </div>
+            <div class="red2 answer-text2" style="display:none"> That’s not it </div>
+
+        </div>
+
+    </div>
+
+    <div class="quizAnswer">
+
+
+    </div>
+
+
+
+
+</div>
+
+<footer>
+
+</footer>
+
+<script>
+
+$(document).ready(function(){
+
+
+    $(function () {
+        $('input[name="test"]').on('click', function() {
+            $(".answer-text").hide();
+            if ($(this).val() === 'ans') {
+                $('.exp').show();
+            } else {
+                $('.red').show();
+            }
+        })
+    });
+
+    $("#quiz2Btn").click(function(){
+        var favorite = [];
+        var favorite2 = ['Processor', 'Memory', 'Hard Disk', 'CD-ROM Drive'];
+
+        $.each($("input[name='pcPart']:checked"), function(){
+            favorite.push($(this).val());
+        });
+
+
+        $.each(favorite,function(i,val){
+
+            var result=$.inArray(val,favorite2);
+
+            $(".answer-text1").hide();
+
+            if(result!==-1){
+                $('.exp1').show();
+            } else {
+                $('.red1').show();
+            }
+        });
+    });
+
+    $('.draggable input').click(function() {
+        $(this).focus();
+    });
+
+
+    $("#quiz3Btn").click(function(){
+
+        $(".answer-text2").hide();
+
+        if($('#answerChar').text === 'Neo'){
+            $('.exp2').show();
+        } else {
+            $('.red2').show();
+        }
+    });
+
+
+
+
+
+
+    var list = document.getElementById('quizCpush1');
+
+    function shuffle(items)
+    {
+        var cached = items.slice(0), temp, i = cached.length, rand;
+        while(--i)
+        {
+            rand = Math.floor(i * Math.random());
+            temp = cached[rand];
+            cached[rand] = cached[i];
+            cached[i] = temp;
+        }
+        return cached;
+    }
+    function shuffleNodes()
+    {
+        var nodes = list.children, i = 0;
+        nodes = Array.prototype.slice.call(nodes);
+        nodes = shuffle(nodes);
+        while(i < nodes.length)
+        {
+            list.appendChild(nodes[i]);
+            ++i;
+        }
+    }
+
+
+    window.onload = shuffleNodes;
+
+
+});
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</body>
+</html>
